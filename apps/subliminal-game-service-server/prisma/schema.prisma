@@ -1,0 +1,44 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ClickPattern {
+  coordinates Json?
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  time        DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Score {
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  points    Int?
+  timestamp DateTime?
+  updatedAt DateTime  @updatedAt
+}
+
+model Affirmation {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  image     Json?
+  text      String?
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
